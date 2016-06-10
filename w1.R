@@ -29,7 +29,7 @@ library("foreign")
 library("car")
 library("hexbin")
 library("devtools")
-library("vcd") #пакет для построения графиков для качественных/категориальных переменных mosaic()
+library("vcd") #РїР°РєРµС‚ РґР»СЏ РїРѕСЃС‚СЂРѕРµРЅРёСЏ РіСЂР°С„РёРєРѕРІ РґР»СЏ РєР°С‡РµСЃС‚РІРµРЅРЅС‹С…/РєР°С‚РµРіРѕСЂРёР°Р»СЊРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… mosaic()
 #library("rlms")
 
 #devtools::install_github("bdemeshev/rlms")
@@ -69,12 +69,12 @@ model0<-lm(data=df,price~0+carat)
 summary(model0)
 
 
-#сохранение результатов
+#СЃРѕС…СЂР°РЅРµРЅРёРµ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ
 stuff<-list(data=df,model=model)
 saveRDS(file="mydata.RDS", stuff)
 #csv - comma separated value
 f1<-read.csv("deep.csv",sep=";",dec=",",header=TRUE)
-#glimpse()-не работает почему то
+#glimpse()-РЅРµ СЂР°Р±РѕС‚Р°РµС‚ РїРѕС‡РµРјСѓ С‚Рѕ
 head(f1)
 
 
@@ -85,7 +85,7 @@ coef(model1)
 summary(model1)
 
 model2<-lm(data=df, price ~ carat+x+y)
-confint(model2,level=0.9)#доверительный интервал
+confint(model2,level=0.9)#РґРѕРІРµСЂРёС‚РµР»СЊРЅС‹Р№ РёРЅС‚РµСЂРІР°Р»
 help(confint)
 
 
@@ -112,37 +112,37 @@ help(diamonds)
 #-----01.06.2016
 
 h<-diamonds
-qplot(data=h,carat,price)#зависимость нелинейна
+qplot(data=h,carat,price)#Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ РЅРµР»РёРЅРµР№РЅР°
 bg<-qplot(data=h,log(carat),log(price))
-bg+geom_hex() #светлые пятна-стандартные формы огранки
+bg+geom_hex() #СЃРІРµС‚Р»С‹Рµ РїСЏС‚РЅР°-СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рµ С„РѕСЂРјС‹ РѕРіСЂР°РЅРєРё
 glimpse(h)
 
 
-mutate_each(data=..,"factor",#список переменных)
+mutate_each(data=..,"factor",#СЃРїРёСЃРѕРє РїРµСЂРµРјРµРЅРЅС‹С…)
 head(h)
 qplot(data=h,depth,fill=color)
 qplot(data=h,depth,fill=color,position="dodge")
 table(h$cut)
 table(h$color)
-table(h$clarity)#прозрачность
+table(h$clarity)#РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ
 table(h$carat)
 qplot(data=h,log(depth),fill=cut,position="dodge")
 q2<-qplot(data=h,log(depth),fill=cut,geom="density",alpha=0.5)
 q2+facet_grid(clarity~color)
 q2+facet_grid(~color)
 
-waldtest()#для оценки значимоссти различия ограниченной и неограниченной моделей
+waldtest()#РґР»СЏ РѕС†РµРЅРєРё Р·РЅР°С‡РёРјРѕСЃСЃС‚Рё СЂР°Р·Р»РёС‡РёСЏ РѕРіСЂР°РЅРёС‡РµРЅРЅРѕР№ Рё РЅРµРѕРіСЂР°РЅРёС‡РµРЅРЅРѕР№ РјРѕРґРµР»РµР№
 
 model_0<-lm(data=h,log(carat)~log(price))
 bg+stat_smooth(method="lm")
-bg+stat_smooth(method="lm")+facet_grid(~cut) # facet_grid дает возможность оценить зависимость размера брилианта(лог) от цены(лог) с разбивкой по степени огранки 
-bg+aes(col=color)+stat_smooth(method="lm")+facet_grid(~cut) #через aes выделяем цветом "цвет" бриллианта
+bg+stat_smooth(method="lm")+facet_grid(~cut) # facet_grid РґР°РµС‚ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕС†РµРЅРёС‚СЊ Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ СЂР°Р·РјРµСЂР° Р±СЂРёР»РёР°РЅС‚Р°(Р»РѕРі) РѕС‚ С†РµРЅС‹(Р»РѕРі) СЃ СЂР°Р·Р±РёРІРєРѕР№ РїРѕ СЃС‚РµРїРµРЅРё РѕРіСЂР°РЅРєРё 
+bg+aes(col=color)+stat_smooth(method="lm")+facet_grid(~cut) #С‡РµСЂРµР· aes РІС‹РґРµР»СЏРµРј С†РІРµС‚РѕРј "С†РІРµС‚" Р±СЂРёР»Р»РёР°РЅС‚Р°
 
-h$nocut<-memisc::recode(h$cut,"Fair"<-"Ideal","Ideal"<-"Fair")# перекодировка значений
+h$nocut<-memisc::recode(h$cut,"Fair"<-"Ideal","Ideal"<-"Fair")# РїРµСЂРµРєРѕРґРёСЂРѕРІРєР° Р·РЅР°С‡РµРЅРёР№
 table(h$nocut)
 table(h$cut)
-mtable() #выдает значения R2_adj, AIC BIC
-resettest() #тест рамсея
+mtable() #РІС‹РґР°РµС‚ Р·РЅР°С‡РµРЅРёСЏ R2_adj, AIC BIC
+resettest() #С‚РµСЃС‚ СЂР°РјСЃРµСЏ
 
 resettest(model_0)
 
@@ -182,7 +182,7 @@ table(station20$freq)
 
 
 
-#03.06--мультиколлинеарность
+#03.06--РјСѓР»СЊС‚РёРєРѕР»Р»РёРЅРµР°СЂРЅРѕСЃС‚СЊ
 
 library("HSAUR")
 library("plyr")
@@ -199,35 +199,35 @@ h<-cars
 h<-mutate(h,speed2=speed^2,speed3=speed^3)
 model<-lm(data=h,dist~speed)
 model_mk<-lm(data=h,dist~speed+speed2+speed3)
-summary(model_mk)#каждый из speed не значим,но F-stat p-value: 3.074e-11 - регрессия вцелом значима, т.е. зависимость от какого регрессора есть  
+summary(model_mk)#РєР°Р¶РґС‹Р№ РёР· speed РЅРµ Р·РЅР°С‡РёРј,РЅРѕ F-stat p-value: 3.074e-11 - СЂРµРіСЂРµСЃСЃРёСЏ РІС†РµР»РѕРј Р·РЅР°С‡РёРјР°, С‚.Рµ. Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ РѕС‚ РєР°РєРѕРіРѕ СЂРµРіСЂРµСЃСЃРѕСЂР° РµСЃС‚СЊ  
 
-#пример мультиколиннеарности
+#РїСЂРёРјРµСЂ РјСѓР»СЊС‚РёРєРѕР»РёРЅРЅРµР°СЂРЅРѕСЃС‚Рё
 
-vif(model_mk) #коэффициенты вздутия дисперсии
+vif(model_mk) #РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РІР·РґСѓС‚РёСЏ РґРёСЃРїРµСЂСЃРёРё
 x0<-model.matrix(data=h,dist~0+speed+speed2+speed3)
 head(x0)
 cor(x0)# correlation
 
-#используем модель для прогнозирования-мультиколлинеарность не проблема-прооверим?
+#РёСЃРїРѕР»СЊР·СѓРµРј РјРѕРґРµР»СЊ РґР»СЏ РїСЂРѕРіРЅРѕР·РёСЂРѕРІР°РЅРёСЏ-РјСѓР»СЊС‚РёРєРѕР»Р»РёРЅРµР°СЂРЅРѕСЃС‚СЊ РЅРµ РїСЂРѕР±Р»РµРјР°-РїСЂРѕРѕРІРµСЂРёРј?
 nd<-data.frame(speed=10,speed2=100,speed3=1000)
-#доверительные интервалы для прогнозных значений
+#РґРѕРІРµСЂРёС‚РµР»СЊРЅС‹Рµ РёРЅС‚РµСЂРІР°Р»С‹ РґР»СЏ РїСЂРѕРіРЅРѕР·РЅС‹С… Р·РЅР°С‡РµРЅРёР№
 predict(model,newdata=nd,interval="prediction")
-predict(model_mk,newdata=nd,interval="prediction")#доверительные интервалы не сильно изменились
+predict(model_mk,newdata=nd,interval="prediction")#РґРѕРІРµСЂРёС‚РµР»СЊРЅС‹Рµ РёРЅС‚РµСЂРІР°Р»С‹ РЅРµ СЃРёР»СЊРЅРѕ РёР·РјРµРЅРёР»РёСЃСЊ
 
-#дов интервалы для коэффициентов
+#РґРѕРІ РёРЅС‚РµСЂРІР°Р»С‹ РґР»СЏ РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРІ
 confint(model)
 confint(model_mk)
 
 
 
-#ридж /лассо
+#СЂРёРґР¶ /Р»Р°СЃСЃРѕ
 y<-h$dist
 x0<-model.matrix(data=h,dist~0+speed+speed2+speed3)
 
 #lasso
 lambdas<-seq(50,0.1,length=30)#vector of lambdas
-m_lasso<-glmnet(x0,y,alpha=1,lambda=lambdas) #дял ридж - альфа=0
-m_coef<-coef(m_lasso,s=c(0.1,1)) # чему равны коэффициенты для лямбда 0.1 и 1
+m_lasso<-glmnet(x0,y,alpha=1,lambda=lambdas) #РґСЏР» СЂРёРґР¶ - Р°Р»СЊС„Р°=0
+m_coef<-coef(m_lasso,s=c(0.1,1)) # С‡РµРјСѓ СЂР°РІРЅС‹ РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РґР»СЏ Р»СЏРјР±РґР° 0.1 Рё 1
 m_coef
 
 
@@ -235,23 +235,23 @@ m_coef
 #PCA
 
 h<-heptathlon
-head(h) #javelin-метание копья
+head(h) #javelin-РјРµС‚Р°РЅРёРµ РєРѕРїСЊСЏ
 
 
-h<-select(h,-score) # select из пакета dplyr и он должен был удалить столбец score, но пакет не ставится
+h<-select(h,-score) # select РёР· РїР°РєРµС‚Р° dplyr Рё РѕРЅ РґРѕР»Р¶РµРЅ Р±С‹Р» СѓРґР°Р»РёС‚СЊ СЃС‚РѕР»Р±РµС† score, РЅРѕ РїР°РєРµС‚ РЅРµ СЃС‚Р°РІРёС‚СЃСЏ
 
-h$score<-NULL # но можно и так :)
+h$score<-NULL # РЅРѕ РјРѕР¶РЅРѕ Рё С‚Р°Рє :)
 head(h)
-describe(h) # разные единицы измерения, разный разброс-НУЖНА СТАНДАРТИЗАЦИЯ!
+describe(h) # СЂР°Р·РЅС‹Рµ РµРґРёРЅРёС†С‹ РёР·РјРµСЂРµРЅРёСЏ, СЂР°Р·РЅС‹Р№ СЂР°Р·Р±СЂРѕСЃ-РќРЈР–РќРђ РЎРўРђРќР”РђР РўРР—РђР¦РРЇ!
 
 
 h.pca<-prcomp(h,scale=TRUE)
 
-pca1<-h.pca$x[,1]# первая гл компонента, новые x
-v1<-h.pca$rotation[,1] #веса 1 гл компоненты, коэффициенты
+pca1<-h.pca$x[,1]# РїРµСЂРІР°СЏ РіР» РєРѕРјРїРѕРЅРµРЅС‚Р°, РЅРѕРІС‹Рµ x
+v1<-h.pca$rotation[,1] #РІРµСЃР° 1 РіР» РєРѕРјРїРѕРЅРµРЅС‚С‹, РєРѕСЌС„С„РёС†РёРµРЅС‚С‹
 v1
 
-summary(h.pca) # разложение по компонентам
+summary(h.pca) # СЂР°Р·Р»РѕР¶РµРЅРёРµ РїРѕ РєРѕРјРїРѕРЅРµРЅС‚Р°Рј
 
 plot(h.pca)
 biplot(h.pca,xlim=c(-1,1))
@@ -260,19 +260,19 @@ head(h.pca)
 
 
 
-#06.06 - промежуточный экзамен
+#06.06 - РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹Р№ СЌРєР·Р°РјРµРЅ
 
 h<- ChickWeight
 head(h)
 table(h)
 table(h$time)
 c1<-h[c("Time", "weight")]
-c2<-c1["Time"]==10 #создаем массив true false по условию Time=10
-c3<-c1[c2,]#выдергиваем из исходного массива с1 только те поля, где True
+c2<-c1["Time"]==10 #СЃРѕР·РґР°РµРј РјР°СЃСЃРёРІ true false РїРѕ СѓСЃР»РѕРІРёСЋ Time=10
+c3<-c1[c2,]#РІС‹РґРµСЂРіРёРІР°РµРј РёР· РёСЃС…РѕРґРЅРѕРіРѕ РјР°СЃСЃРёРІР° СЃ1 С‚РѕР»СЊРєРѕ С‚Рµ РїРѕР»СЏ, РіРґРµ True
 table(c3$Time)
 round(mean(c3$weight),digits = 2)
 
-#цыплята какой диеты в среднем больше всего весят на 21 день
+#С†С‹РїР»СЏС‚Р° РєР°РєРѕР№ РґРёРµС‚С‹ РІ СЃСЂРµРґРЅРµРј Р±РѕР»СЊС€Рµ РІСЃРµРіРѕ РІРµСЃСЏС‚ РЅР° 21 РґРµРЅСЊ
 c_1<-h["Time"]==21
 c_2<-h[c_1,]
 head(c_2)
@@ -281,7 +281,7 @@ help(mean)
 aggregate(c_2["weight"],list(c_2$Diet),mean)
 
 
-#оценить регрессию веса цыпленка на его возраст и тип диеты, вытащить r2
+#РѕС†РµРЅРёС‚СЊ СЂРµРіСЂРµСЃСЃРёСЋ РІРµСЃР° С†С‹РїР»РµРЅРєР° РЅР° РµРіРѕ РІРѕР·СЂР°СЃС‚ Рё С‚РёРї РґРёРµС‚С‹, РІС‹С‚Р°С‰РёС‚СЊ r2
 model_chick<-lm(data=h,weight~Time+Diet)
 summary(model_chick)
 help(lm)
@@ -333,6 +333,5 @@ model_food<-lm(data=food,wfood~totexp+size)
 model_food2<-lm(data=food,wfood~sex*(totexp+size))
 summary(model_food2)
 waldtest(model_food,model_food2)
-
 
 
