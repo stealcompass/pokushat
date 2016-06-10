@@ -19,8 +19,8 @@ for (i in 5:10){
   cat("i=",i, ",i^2=",k,"\n")
 } 
 
-#i может быть не только числовым, например можно for(fname=c("data0.csv","data1.csv"))
-#rbind()-аналог set в sase
+#i РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅРµ С‚РѕР»СЊРєРѕ С‡РёСЃР»РѕРІС‹Рј, РЅР°РїСЂРёРјРµСЂ РјРѕР¶РЅРѕ for(fname=c("data0.csv","data1.csv"))
+#rbind()-Р°РЅР°Р»РѕРі set РІ sase
 
 library ("sandwich") #vcovHC vcovHAC
 library ("broom")
@@ -29,27 +29,27 @@ library ("plyr")
 library ("lmtest")
 library ("ggplot2")
 
-augment(model,data=) #остатки модели .-resid /-.fitted прогнозноне значение
+augment(model,data=) #РѕСЃС‚Р°С‚РєРё РјРѕРґРµР»Рё .-resid /-.fitted РїСЂРѕРіРЅРѕР·РЅРѕРЅРµ Р·РЅР°С‡РµРЅРёРµ
 
 
-vcovHC(model)#оценки ковариационной матрицы гетроскедастичности
+vcovHC(model)#РѕС†РµРЅРєРё РєРѕРІР°СЂРёР°С†РёРѕРЅРЅРѕР№ РјР°С‚СЂРёС†С‹ РіРµС‚СЂРѕСЃРєРµРґР°СЃС‚РёС‡РЅРѕСЃС‚Рё
 
-coeftest(model, vcov.=vcovHC(model)) # тест для коэф b с учетом скорректированной матрицы ковариации
+coeftest(model, vcov.=vcovHC(model)) # С‚РµСЃС‚ РґР»СЏ РєРѕСЌС„ b СЃ СѓС‡РµС‚РѕРј СЃРєРѕСЂСЂРµРєС‚РёСЂРѕРІР°РЅРЅРѕР№ РјР°С‚СЂРёС†С‹ РєРѕРІР°СЂРёР°С†РёРё
 
-bptest(model) #тест уайта
+bptest(model) #С‚РµСЃС‚ СѓР°Р№С‚Р°
 
-bptest(model,data=,varformula = ~totsp+I(totsp^2)) #тест уайта,классика, с учетом 2 степеней
-#он же по другому записанный
-bptest(model,data=,varformula = ~poly(totsp,2)) #тест уайта
-#тест гольдфринда-квиндта
-gqtest(model,order.by=~totsp,data=, fraction=0.2) #выкидывание 20% проц 
+bptest(model,data=,varformula = ~totsp+I(totsp^2)) #С‚РµСЃС‚ СѓР°Р№С‚Р°,РєР»Р°СЃСЃРёРєР°, СЃ СѓС‡РµС‚РѕРј 2 СЃС‚РµРїРµРЅРµР№
+#РѕРЅ Р¶Рµ РїРѕ РґСЂСѓРіРѕРјСѓ Р·Р°РїРёСЃР°РЅРЅС‹Р№
+bptest(model,data=,varformula = ~poly(totsp,2)) #С‚РµСЃС‚ СѓР°Р№С‚Р°
+#С‚РµСЃС‚ РіРѕР»СЊРґС„СЂРёРЅРґР°-РєРІРёРЅРґС‚Р°
+gqtest(model,order.by=~totsp,data=, fraction=0.2) #РІС‹РєРёРґС‹РІР°РЅРёРµ 20% РїСЂРѕС† 
 
 
 
-#борьба с гетероскедастичностью логарифмированием
-# в начале нужно теоретическое предположение о наличии гетероскедастичности и использование робастных поправок, только потом тестирование
+#Р±РѕСЂСЊР±Р° СЃ РіРµС‚РµСЂРѕСЃРєРµРґР°СЃС‚РёС‡РЅРѕСЃС‚СЊСЋ Р»РѕРіР°СЂРёС„РјРёСЂРѕРІР°РЅРёРµРј
+# РІ РЅР°С‡Р°Р»Рµ РЅСѓР¶РЅРѕ С‚РµРѕСЂРµС‚РёС‡РµСЃРєРѕРµ РїСЂРµРґРїРѕР»РѕР¶РµРЅРёРµ Рѕ РЅР°Р»РёС‡РёРё РіРµС‚РµСЂРѕСЃРєРµРґР°СЃС‚РёС‡РЅРѕСЃС‚Рё Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЂРѕР±Р°СЃС‚РЅС‹С… РїРѕРїСЂР°РІРѕРє, С‚РѕР»СЊРєРѕ РїРѕС‚РѕРј С‚РµСЃС‚РёСЂРѕРІР°РЅРёРµ
 
-#автокорреляция
+#Р°РІС‚РѕРєРѕСЂСЂРµР»СЏС†РёСЏ
 library("devtools")
 install_github("dqrtwo/broom")
 install_github("cran/bstats")
@@ -57,23 +57,23 @@ install_github("bdemeshev/rusquant")
 install_github("bdemeshev/sophisthse")
 
 
-library("lubridate")#работа с датами
-library("bstats")# тесты
-library("zoo")#временные ряды
-library("xts")#еще
+library("lubridate")#СЂР°Р±РѕС‚Р° СЃ РґР°С‚Р°РјРё
+library("bstats")# С‚РµСЃС‚С‹
+library("zoo")#РІСЂРµРјРµРЅРЅС‹Рµ СЂСЏРґС‹
+library("xts")#РµС‰Рµ
 library ("sandwich") #vcovHC vcovHAC
 library ("broom")
-library ("car")#тесты
+library ("car")#С‚РµСЃС‚С‹
 library ("dplyr")
-library ("lmtest")#тесты
+library ("lmtest")#С‚РµСЃС‚С‹
 library ("ggplot2")
 
 
 
-library ("quantmod")# данные google 
-library ("rusquant")# данные finam.ru
-library ("sophisthse")# данные sophist.hse.ru
-library("Quandl")#данные с quandl
+library ("quantmod")# РґР°РЅРЅС‹Рµ google 
+library ("rusquant")# РґР°РЅРЅС‹Рµ finam.ru
+library ("sophisthse")# РґР°РЅРЅС‹Рµ sophist.hse.ru
+library("Quandl")#РґР°РЅРЅС‹Рµ СЃ quandl
 
 x<-c("2015-10-02","2016-01-10")
 y<-ymd(x)
@@ -94,27 +94,27 @@ z<-(lag(ts,-3)+lag(ts,-2)+lag(ts,-1))/3
 z
 lag(ts,-3)
 
-ts2<-zooreg(x,start=as.yearqtr("2014-01"),freq=4)#квартальные данные по 4 кв
+ts2<-zooreg(x,start=as.yearqtr("2014-01"),freq=4)#РєРІР°СЂС‚Р°Р»СЊРЅС‹Рµ РґР°РЅРЅС‹Рµ РїРѕ 4 РєРІ
 ts2
-ts3<-zooreg(x,start=as.yearmon("2014-01"),freq=12)#месячные показатели
+ts3<-zooreg(x,start=as.yearmon("2014-01"),freq=12)#РјРµСЃСЏС‡РЅС‹Рµ РїРѕРєР°Р·Р°С‚РµР»Рё
 ts3
 
 data("Investment")
 help("Investment")
 start(data)
 end(data)
-time(data)#инфа по времени распределения
-coredata(data)#сами данные без времени
+time(data)#РёРЅС„Р° РїРѕ РІСЂРµРјРµРЅРё СЂР°СЃРїСЂРµРґРµР»РµРЅРёСЏ
+coredata(data)#СЃР°РјРё РґР°РЅРЅС‹Рµ Р±РµР· РІСЂРµРјРµРЅРё
 
 
-#для заполнения пропусков
-#среднее
+#РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ РїСЂРѕРїСѓСЃРєРѕРІ
+#СЃСЂРµРґРЅРµРµ
 na.aprox(data)
 
-#предыдущим
+#РїСЂРµРґС‹РґСѓС‰РёРј
 na.locf(data)
 
-#источники данных
+#РёСЃС‚РѕС‡РЅРёРєРё РґР°РЅРЅС‹С…
 #finance.google.com
 #finance.yahoo.com
 #quandl.com
@@ -126,17 +126,17 @@ b<-Quandl("FRED/GNP")
 #finance.google.com
 
 Sys.setlocale("LC_TIME","C")
-#получение данных
-getSymbols(Symbols="AAPL",from="2010-01-01",to="2014-02-03",src="google")#акции apple c гугл /src=yahoo, данные с яху
+#РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С…
+getSymbols(Symbols="AAPL",from="2010-01-01",to="2014-02-03",src="google")#Р°РєС†РёРё apple c РіСѓРіР» /src=yahoo, РґР°РЅРЅС‹Рµ СЃ СЏС…Сѓ
 head(AAPL)
 tail(AAPL)
 
-#графики
+#РіСЂР°С„РёРєРё
 autoplot(AAPL)
 autoplot(AAPL[,1:4])
 autoplot(AAPL[,1:4],facets=NULL)
 
-chartSeries(AAPL) #внизу объемы торгов
+chartSeries(AAPL) #РІРЅРёР·Сѓ РѕР±СЉРµРјС‹ С‚РѕСЂРіРѕРІ
 
 
 
@@ -145,7 +145,7 @@ chartSeries(AAPL) #внизу объемы торгов
 
 
 
-#тест
+#С‚РµСЃС‚
 library ("Ecdat")
 h0<-Griliches
 model_test6<-lm(data=h0,lw80~age80+iq+school80+expr80)
